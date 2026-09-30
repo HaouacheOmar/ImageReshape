@@ -1,0 +1,6 @@
+Django>=6.1,<6.2
+djangorestframework
+django-cors-headers
+opencv-python-headless
+numpy
+gunicorn

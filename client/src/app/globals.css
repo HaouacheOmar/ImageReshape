@@ -1,0 +1,42 @@
+@import "tailwindcss";
+/* Design tokens live in Design_System — never redefine them here. */
+@import "../../Design_System/theme.css";
+
+@theme inline {
+  /* PPNeueMontreal is licensed; Inter is the documented substitute. */
+  --font-sans: "PPNeueMontreal", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-bone-white);
+  font-family: var(--font-sans);
+  font-weight: 200;
+  font-feature-settings: "ss01" on;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-electric-iris);
+  color: var(--color-bone-white);
+}
+
+/* Inputs signal focus with their amber underline instead. */
+:focus-visible:not(input) {
+  outline: 2px solid var(--color-saffron-spark);
+  outline-offset: 4px;
+}
+
+/* Number inputs: plain type, no spinners. */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
