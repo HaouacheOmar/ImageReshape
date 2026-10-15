@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yb^mtfir*xkd$ty8hoz9iyq(qdj36nt&8dq3we(&oc)dak8hu9'
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'django-insecure-yb^mtfir*xkd$ty8hoz9iyq(qdj36nt&8dq3we(&oc)dak8hu9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', '1') == '1'
 
 ALLOWED_HOSTS = ['*']
 
@@ -135,7 +135,10 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-]
+] + [o for o in os.environ.get('CORS_ORIGINS', '').split(',') if o]
+
+# Render terminates TLS; without this, image_url comes back as http:// and the HTTPS client can't load it.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 MEDIA_URL = '/media/'
